@@ -1,10 +1,10 @@
 import React from 'react';
-import SortedTable from './components/SortedTable';
+import FilterTable from './components/FilterTable';
 
 function App() {
   return (
     <div className="App">
-      <SortedTable/>
+      <FilterTable/>
     </div>
   );
 }
