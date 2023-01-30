@@ -5,11 +5,17 @@ import './table.css';
 import { COLUMNS } from './columns';
 import Information from './information.json';
 import GlobalFilter from './GlobalFilter';
+import ColumnFilter from './ColumnFilter';
 
 function FilterTable() {
 
   const columns = useMemo(() => COLUMNS, []);
   const information = useMemo(() => Information, []);
+  const defaultColumn = useMemo(() => {
+    return {
+      Filter: ColumnFilter
+    }
+   }, []);
 
   const {
     getTableProps,
@@ -21,7 +27,8 @@ function FilterTable() {
     state,
     setGlobalFilter} = useTable({
     columns: columns,
-    data: information
+    data: information,
+    defaultColumn: defaultColumn
     },useFilters, useGlobalFilter);
   
   const { globalFilter } = state;
