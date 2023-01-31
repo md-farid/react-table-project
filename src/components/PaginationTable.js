@@ -20,11 +20,16 @@ function PaginationTable() {
     canNextPage,
     canPreviousPage,
     pageOptions,
+    gotoPage,
+    pageCount,
     state,
     prepareRow
    } = useTable({
     columns: columns,
-    data: information
+     data: information,
+     initialState: {
+      
+    }
   },usePagination);
 
   const { pageIndex } = state;
@@ -67,10 +72,19 @@ function PaginationTable() {
           Page{' '}
           <strong>
             {pageIndex + 1} of {pageOptions.length} { ' ' }
-          </strong>
+          </strong> { ' ' }
         </span>
+        <span>
+          | Number: {' '}
+          <input type='number' defaultValue={pageIndex + 1} onChange={(e) => {
+            const number = e.target.value ? Number(e.target.value) - 1 : 0;
+            gotoPage(number);
+          }} style={{ width: '50px' }} />
+        </span>
+        <button onClick={() => gotoPage(0)} disabled={ !canPreviousPage }>{ '<<' }</button>
         <button onClick={() => previousPage()} disabled={ !canPreviousPage }>Prev</button>
-        <button onClick={() => nextPage()} disabled={ !canNextPage }>Next</button>
+        <button onClick={() => nextPage()} disabled={!canNextPage}>Next</button>
+        <button onClick={() => gotoPage(pageCount - 1)} disabled={ !canNextPage }>{ '>>' }</button>
       </div>
     </React.Fragment>
   )
